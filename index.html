@@ -1,0 +1,2162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eco-Ahorro 💧</title>
+
+<style>
+*{
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+    margin: 0;
+    background: linear-gradient(160deg, #8edfff, #fff4a8);
+    color: #174b68;
+    overflow-x: hidden;
+}
+
+/* =========================
+   GOTITAS
+========================= */
+#lluvia{
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.gota{
+    position: absolute;
+    top: -60px;
+    color: #20bde8;
+    opacity: .65;
+    animation: caer linear infinite;
+    text-shadow: 0 1px 3px rgba(0,120,180,.25);
+}
+
+@keyframes caer{
+    0%{
+        transform: translateY(-70px) rotate(0deg);
+        opacity: 0;
+    }
+
+    10%{
+        opacity: .7;
+    }
+
+    100%{
+        transform: translateY(115vh) rotate(12deg);
+        opacity: .25;
+    }
+}
+
+/* =========================
+   PANTALLAS
+========================= */
+.pantalla{
+    display: none;
+    min-height: 100vh;
+    padding: 25px 16px 100px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.pantalla.activa{
+    display: block;
+}
+
+/* =========================
+   IMÁGENES
+========================= */
+.icono-app{
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    display: block;
+    margin: auto;
+    filter: drop-shadow(0 8px 15px rgba(0,100,160,.25));
+}
+
+.inicio-icono img{
+    width: 230px;
+    height: 230px;
+    object-fit: contain;
+    border-radius: 50%;
+    filter: drop-shadow(0 12px 25px rgba(0,100,160,.25));
+    animation: flotarIcono 3s ease-in-out infinite;
+}
+
+@keyframes flotarIcono{
+    50%{
+        transform: translateY(-10px);
+    }
+}
+
+.imagen-card{
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 18px;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.imagen-consejo{
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 18px;
+    margin-bottom: 12px;
+}
+
+.imagen-resultados{
+    width: 100%;
+    max-width: 500px;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 22px;
+    margin: 10px auto 20px;
+    display: block;
+}
+
+.imagen-impacto{
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 18px;
+    margin-bottom: 12px;
+}
+
+/* =========================
+   INICIO
+========================= */
+.inicio-contenedor{
+    max-width: 850px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    padding: 25px;
+}
+
+.inicio-opciones{
+    width: 100%;
+    max-width: 430px;
+    background: rgba(255,255,255,.95);
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(0,100,160,.18);
+}
+
+.inicio-opciones h1{
+    font-size: 40px;
+    color: #075b91;
+    margin-top: 0;
+}
+
+.inicio-opciones p{
+    font-size: 18px;
+    color: #47748b;
+}
+
+/* =========================
+   PANTALLA ICONO
+========================= */
+.pantalla-icono{
+    display: none;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(135deg,#62d9ff,#168bd1,#ffd84d);
+    position: relative;
+    z-index: 5;
+}
+
+.pantalla-icono.activa{
+    display: flex;
+}
+
+.icono-splash{
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 8px 15px rgba(0,0,0,.2));
+}
+
+.pantalla-icono h2{
+    color: white;
+    font-size: 30px;
+    margin: 10px;
+}
+
+.pantalla-icono p{
+    color: white;
+    font-size: 17px;
+    margin-bottom: 25px;
+}
+
+/* =========================
+   BOTONES
+========================= */
+button{
+    padding: 14px 22px;
+    margin: 8px;
+    border-radius: 20px;
+    border: none;
+    background: #079bd2;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,110,170,.2);
+    transition: .2s;
+}
+
+button:hover{
+    background: #075b91;
+    transform: translateY(-2px);
+}
+
+.btn-sec{
+    background: #ffd84d;
+    color: #174b68;
+}
+
+.btn-sec:hover{
+    background: #f5c928;
+}
+
+/* =========================
+   CAJAS
+========================= */
+.caja,
+.tarjeta{
+    background: rgba(255,255,255,.96);
+    max-width: 850px;
+    margin: 20px auto;
+    padding: 25px;
+    border-radius: 25px;
+    box-shadow: 0 8px 25px rgba(0,100,160,.18);
+}
+
+/* =========================
+   CAMPOS
+========================= */
+input,
+select{
+    width: 100%;
+    padding: 13px;
+    margin: 8px 0;
+    border-radius: 15px;
+    border: 2px solid #58c9ed;
+    background: white;
+    font-size: 15px;
+}
+
+label{
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+/* =========================
+   TITULOS
+========================= */
+h1{
+    color: #075b91;
+    font-size: 38px;
+}
+
+h2{
+    color: #087bb5;
+}
+
+h3{
+    color: #0a82b8;
+}
+
+/* =========================
+   ENCABEZADO
+========================= */
+.encabezado{
+    max-width: 850px;
+    margin: 10px auto 20px;
+}
+
+/* =========================
+   TARJETAS
+========================= */
+.grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+    gap: 18px;
+    max-width: 950px;
+    margin: 20px auto;
+}
+
+.card-menu{
+    background: white;
+    border-radius: 24px;
+    padding: 20px;
+    text-align: center;
+    border-top: 5px solid #ffd84d;
+    box-shadow: 0 7px 20px rgba(0,80,160,.15);
+}
+
+.card-menu .icon{
+    font-size: 55px;
+}
+
+/* =========================
+   LISTA HABITOS
+========================= */
+.lista{
+    text-align: left;
+    max-width: 700px;
+    margin: auto;
+}
+
+.lista div{
+    background: #fffbea;
+    border-left: 5px solid #ffd43b;
+    padding: 14px;
+    margin: 10px 0;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.lista input{
+    width: auto;
+    margin: 0;
+    transform: scale(1.25);
+}
+
+/* =========================
+   RESULTADOS
+========================= */
+.resultado{
+    font-size: 22px;
+    font-weight: bold;
+    color: #075b91;
+    text-align: center;
+}
+
+.barra{
+    height: 25px;
+    background: #d9f4ff;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 15px 0;
+}
+
+.progreso{
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg,#19bfe8,#ffd43b);
+    transition: width .6s;
+}
+
+/* =========================
+   MINI DATOS
+========================= */
+.mini{
+    display: inline-block;
+    background: #fffbea;
+    border: 1px solid #ffe27a;
+    padding: 9px 13px;
+    border-radius: 14px;
+    margin: 4px;
+    font-weight: bold;
+}
+
+/* =========================
+   DATOS Y RETOS
+========================= */
+.caja-especial{
+    background: linear-gradient(135deg,#e2f8ff,#fff9cf);
+    border: 3px solid #ffd84d;
+    border-radius: 25px;
+    padding: 25px;
+    max-width: 750px;
+    margin: 25px auto;
+    box-shadow: 0 8px 20px rgba(0,100,160,.15);
+}
+
+.mensaje-especial{
+    font-size: 20px;
+    font-weight: bold;
+    color: #075b91;
+    min-height: 55px;
+}
+
+/* =========================
+   MINI JUEGO: ATRAPA LA GOTA
+========================= */
+.juego-area{
+    position: relative;
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(to bottom, #d9f5ff, #8edfff);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 3px dashed #0789bd;
+    margin: 15px 0;
+    cursor: crosshair;
+}
+
+.gota-juego{
+    position: absolute;
+    font-size: 32px;
+    cursor: pointer;
+    user-select: none;
+    transition: transform .1s;
+}
+
+.gota-juego:hover{
+    transform: scale(1.3);
+}
+
+.stats-juego{
+    display: flex;
+    justify-content: space-around;
+    font-size: 18px;
+    font-weight: bold;
+    color: #075b91;
+    margin-bottom: 10px;
+}
+
+/* =========================
+   MENU INFERIOR
+========================= */
+.menu{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    background: #fffef8;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px;
+    box-shadow: 0 -5px 18px rgba(0,100,160,.15);
+}
+
+.menu button{
+    margin: 0;
+    padding: 9px 12px;
+    font-size: 13px;
+    background: #0789bd;
+}
+
+.menu button:hover{
+    background: #075b91;
+}
+
+/* =========================
+   OTROS
+========================= */
+.small{
+    font-size: 13px;
+    color: #557;
+}
+
+.oculto{
+    display: none;
+}
+
+hr{
+    border: none;
+    border-top: 2px solid #d9f4ff;
+    margin: 20px 0;
+}
+
+.mensaje-borrado{
+    color: #087bb5;
+    font-weight: bold;
+    font-size: 17px;
+    min-height: 25px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media(max-width:700px){
+    .inicio-contenedor{
+        padding-top: 30px;
+    }
+
+    .inicio-icono img{
+        width: 190px;
+        height: 190px;
+    }
+
+    .inicio-opciones h1{
+        font-size: 32px;
+    }
+
+    .icono-app{
+        width: 130px;
+        height: 130px;
+    }
+
+    .icono-splash{
+        width: 130px;
+        height: 130px;
+    }
+
+    .menu{
+        overflow-x: auto;
+        justify-content: flex-start;
+    }
+
+    .menu button{
+        white-space: nowrap;
+    }
+
+    .imagen-card,
+    .imagen-consejo,
+    .imagen-impacto{
+        height: 150px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- GOTITAS -->
+<div id="lluvia"></div>
+
+<!-- =========================
+     INICIO
+========================= -->
+<section id="inicio" class="pantalla activa">
+<div class="inicio-contenedor">
+<div class="inicio-icono">
+<img src="ecoahorro-icono.png" alt="Icono Eco-Ahorro">
+</div>
+<div class="inicio-opciones">
+<h1>Eco-Ahorro 💧</h1>
+<p>Cada gota cuenta para cuidar nuestro planeta 🌎</p>
+<button onclick="mostrar('login')">Iniciar sesión 🚀</button>
+<button class="btn-sec" onclick="mostrar('registro')">Crear cuenta 📝</button>
+</div>
+</div>
+</section>
+
+<!-- =========================
+     LOGIN
+========================= -->
+<section id="login" class="pantalla">
+    <div class="caja">
+
+        <img src="ecoahorro-icono.png"
+             class="icono-app"
+             alt="Eco-Ahorro">
+
+        <h1>🔐 Iniciar sesión</h1>
+
+        <label>Usuario</label>
+        <input
+            id="usuario"
+            type="text"
+            placeholder="Escribe tu usuario"
+        >
+
+        <label>Contraseña</label>
+
+        <div style="position:relative; width:100%;">
+
+            <input
+                id="clave"
+                type="password"
+                placeholder="Escribe tu contraseña"
+                style="width:100%; padding-right:50px;"
+            >
+
+            <button
+                type="button"
+                onclick="alternarClave()"
+                aria-label="Mostrar u ocultar contraseña"
+                style="
+                    position:absolute;
+                    right:8px;
+                    top:50%;
+                    transform:translateY(-50%);
+                    background:transparent;
+                    border:none;
+                    box-shadow:none;
+                    padding:8px;
+                    margin:0;
+                    cursor:pointer;
+                "
+            >
+                <svg
+                    id="iconoOjo"
+                    width="23"
+                    height="23"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#527d91"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                    <path id="lineaOjo" d="M3 3l18 18"/>
+                </svg>
+            </button>
+
+        </div>
+
+        <button onclick="ingresar()">Entrar 💧</button>
+
+        <button class="btn-sec"
+                onclick="mostrar('registro')">
+            Crear cuenta 📝
+        </button>
+
+        <button class="btn-sec"
+                onclick="mostrar('inicio')">
+            Volver
+        </button>
+
+        <p id="mensaje"></p>
+
+    </div>
+</section>
+
+<script>
+function alternarClave() {
+    const campo = document.getElementById("clave");
+    const linea = document.getElementById("lineaOjo");
+
+    if (campo.type === "password") {
+        campo.type = "text";
+        linea.style.display = "none";
+    } else {
+        campo.type = "password";
+        linea.style.display = "block";
+    }
+}
+</script>
+
+<!-- =========================
+     REGISTRO
+========================= -->
+<section id="registro" class="pantalla">
+<div class="caja">
+
+    <img src="ecoahorro-icono.png"
+         class="icono-app"
+         alt="Eco-Ahorro">
+
+    <h1>👤 Crear cuenta</h1>
+
+    <p class="small">Completa tus datos para utilizar Eco-Ahorro.</p>
+
+    <label>Nombre</label>
+    <input id="nombre" placeholder="Nombre">
+
+    <label>Apellido</label>
+    <input id="apellido" placeholder="Apellido">
+
+    <label>Género</label>
+    <select id="genero">
+        <option value="">Seleccionar</option>
+        <option value="Femenino">Femenino</option>
+        <option value="Masculino">Masculino</option>
+    </select>
+
+    <label>Ciudad</label>
+    <input id="ciudad" placeholder="Ej.: Sucre">
+
+    <label>Correo</label>
+    <input id="correo" type="email" placeholder="correo@ejemplo.com">
+
+    <label>Fecha de nacimiento</label>
+    <input id="fecha" type="date">
+
+    <label>Usuario</label>
+    <input id="nuevoUsuario" placeholder="Crear usuario">
+
+    <label>Contraseña</label>
+
+    <div style="position:relative; width:100%;">
+
+        <input
+            id="nuevaClave"
+            type="password"
+            placeholder="Crear contraseña"
+            style="width:100%; padding-right:50px;"
+        >
+
+        <button
+            type="button"
+            onclick="alternarClaveRegistro()"
+            aria-label="Mostrar u ocultar contraseña"
+            style="
+                position:absolute;
+                right:8px;
+                top:50%;
+                transform:translateY(-50%);
+                background:transparent;
+                border:none;
+                box-shadow:none;
+                padding:8px;
+                margin:0;
+                cursor:pointer;
+            "
+        >
+            <svg
+                width="23"
+                height="23"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#527d91"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7z"/>
+                <circle cx="12" cy="12" r="3"/>
+                <path id="lineaOjoRegistro" d="M3 3l18 18"/>
+            </svg>
+        </button>
+
+    </div>
+
+    <button onclick="registrar()">Guardar registro ✅</button>
+
+    <button class="btn-sec" onclick="mostrar('inicio')">
+        Volver
+    </button>
+
+</div>
+</section>
+
+<script>
+function alternarClaveRegistro() {
+    const campo = document.getElementById("nuevaClave");
+    const linea = document.getElementById("lineaOjoRegistro");
+
+    if (campo.type === "password") {
+        campo.type = "text";
+        linea.style.display = "none";
+    } else {
+        campo.type = "password";
+        linea.style.display = "block";
+    }
+}
+</script>
+
+<!-- =========================
+     PANTALLA ICONO
+========================= -->
+<section id="pantallaIcono" class="pantalla-icono">
+<img src="ecoahorro-icono.png" class="icono-splash" alt="Eco-Ahorro">
+<h2>¡Bienvenido a Eco-Ahorro! 💧</h2>
+<p class="texto-splash">¡Listo! Ya puedes comenzar a cuidar el agua 💧🌱</p>
+<button onclick="entrarAplicacion()">Entrar a Eco-Ahorro 💧</button>
+</section>
+
+<!-- =================================
+     INICIO ECO-AHORRO CON RACHA
+================================= -->
+
+<style>
+
+/* TARJETA DE RACHA */
+
+.tarjeta-racha {
+    background: linear-gradient(135deg, #d9f3ff, #a8e0f5);
+    border: 2px solid #8bd1ed;
+    border-radius: 20px;
+    padding: 18px;
+    margin: 15px auto 25px;
+    max-width: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    box-shadow: 0 4px 12px rgba(40,140,180,0.15);
+}
+
+.racha-icono {
+    font-size: 42px;
+    background: white;
+    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.racha-info h2 {
+    color: #176b91;
+    font-size: 19px;
+    margin: 0 0 7px;
+}
+
+.racha-info p {
+    color: #087eae;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.racha-info small {
+    color: #38677e;
+    font-size: 12px;
+}
+
+</style>
+
+
+<!-- =========================
+     PANTALLA PRINCIPAL
+========================= -->
+
+<section id="principal" class="pantalla">
+
+<div class="encabezado">
+    <h1>Bienvenido a Eco-Ahorro 💧</h1>
+    <p id="saludo">Hola, usuario 💧 ¡Sigamos cuidando el agua!</p>
+</div>
+
+
+<!-- RACHA ECO-AHORRO -->
+
+<div class="tarjeta-racha">
+
+    <div class="racha-icono">💧</div>
+
+    <div class="racha-info">
+        <h2>Mi racha Eco-Ahorro</h2>
+
+        <p>🔥 <span id="numeroRacha">0</span> días consecutivos</p>
+
+        <small id="mensajeRacha">
+            ¡Comienza hoy a cuidar el agua!
+        </small>
+    </div>
+
+</div>
+
+
+<div class="grid">
+
+    <!-- CONSUMO -->
+    <div class="card-menu">
+        <img src="consumo.jpg" alt="Consumo de agua" class="imagen-card">
+        <h2>Consumo 📊</h2>
+        <p>Registra y compara tu consumo de agua.</p>
+        <button onclick="mostrar('consumo')">Abrir</button>
+    </div>
+
+    <!-- HABITOS -->
+    <div class="card-menu">
+        <img src="habitosparacuidarelagua.jpg" alt="Hábitos para cuidar el agua" class="imagen-card">
+        <h2>Hábitos 🌱</h2>
+        <p>Identifica hábitos adecuados e inadecuados para ahorrar agua.</p>
+        <button onclick="mostrar('habitos')">Abrir</button>
+    </div>
+
+    <!-- CONSEJOS -->
+    <div class="card-menu">
+        <img src="consejos.jpg" alt="Consejos para cuidar el agua" class="imagen-card">
+        <h2>Consejos 💡</h2>
+        <p>Aprende prácticas para ahorrar agua todos los días.</p>
+        <button onclick="mostrar('consejos')">Abrir</button>
+    </div>
+
+    <!-- RESULTADOS -->
+    <div class="card-menu">
+        <img src="resultadodecuidarelagua.jpg" alt="Resultados y progreso" class="imagen-card">
+        <h2>Resultados 📈</h2>
+        <p>Observa tu progreso y conoce tus avances.</p>
+        <button onclick="mostrar('resultados')">Abrir</button>
+    </div>
+
+    <!-- MINI JUEGO -->
+    <div class="card-menu">
+        <img src="minijuego.jpg" alt="Mini juego Eco-Ahorro" class="imagen-card">
+        <h2>Mini-Juego 🕹️</h2>
+        <p>¡Atrapa las gotitas y demuestra cuánto sabes!</p>
+        <button onclick="mostrar('juego')">Jugar 🎮</button>
+    </div>
+
+    <!-- IMPACTO -->
+    <div class="card-menu">
+        <img src="impacto.jpg" alt="Impacto del cuidado del agua" class="imagen-card">
+        <h2>Impacto 🌎</h2>
+        <p>Descubre los beneficios de cuidar el agua.</p>
+        <button onclick="mostrar('impacto')">Abrir</button>
+    </div>
+
+</div>
+</section>
+
+
+<!-- =========================
+     SISTEMA DE RACHA
+========================= -->
+
+<script>
+
+function actualizarRacha() {
+
+    // Identificar al usuario conectado
+    const usuario = localStorage.getItem("usuarioActual");
+
+    if (!usuario) {
+        document.getElementById("numeroRacha").textContent = "0";
+        document.getElementById("mensajeRacha").textContent =
+            "Inicia sesión para comenzar tu racha.";
+        return;
+    }
+
+    // Crear una clave individual para cada usuario
+    const clave = "rachaEco_" + usuario;
+
+    let datos = JSON.parse(localStorage.getItem(clave)) || {
+        actual: 0,
+        record: 0,
+        ultimaFecha: ""
+    };
+
+    // Obtener fecha local
+    const ahora = new Date();
+
+    const hoy = [
+        ahora.getFullYear(),
+        String(ahora.getMonth() + 1).padStart(2, "0"),
+        String(ahora.getDate()).padStart(2, "0")
+    ].join("-");
+
+    if (datos.ultimaFecha !== hoy) {
+
+        if (datos.ultimaFecha === "") {
+            datos.actual = 1;
+        } else {
+
+            const ultima = new Date(
+                datos.ultimaFecha + "T00:00:00"
+            );
+
+            const fechaHoy = new Date(
+                hoy + "T00:00:00"
+            );
+
+            const diferencia = Math.round(
+                (fechaHoy - ultima) / 86400000
+            );
+
+            if (diferencia === 1) {
+                datos.actual++;
+            } else {
+                datos.actual = 1;
+            }
+        }
+
+        datos.ultimaFecha = hoy;
+
+        if (datos.actual > datos.record) {
+            datos.record = datos.actual;
+        }
+
+        localStorage.setItem(clave, JSON.stringify(datos));
+    }
+
+    // Mostrar resultados
+    document.getElementById("numeroRacha").textContent =
+        datos.actual;
+
+    document.getElementById("mensajeRacha").textContent =
+        "¡Tu récord es de " + datos.record +
+        " días! Sigue cuidando el agua. 💧";
+
+}
+
+// Ejecutar al entrar
+actualizarRacha();
+
+</script>
+
+
+
+<!-- =========================
+     CONSUMO
+========================= -->
+<section id="consumo" class="pantalla">
+<div class="encabezado">
+<h1>💧 Consumo de agua</h1>
+<p>Registra tu consumo y conoce tus hábitos de uso.</p>
+</div>
+<div class="caja">
+<img src="consumo.jpg" alt="Consumo de agua" class="imagen-resultados">
+<label>Cantidad de agua utilizada</label>
+<input id="cantidad" type="number" placeholder="Ej.: 80">
+<label>Frecuencia</label>
+<select id="frecuencia">
+<option>Diario</option>
+<option>Semanal</option>
+<option>Mensual</option>
+</select>
+<label>Tipo de registro</label>
+<select id="tipoRegistro">
+<option>Registro diario</option>
+<option>Registro mensual</option>
+</select>
+<button onclick="guardarConsumo()">Guardar consumo 💾</button>
+<button class="btn-sec" onclick="mostrar('principal')">Volver</button>
+<div id="datosConsumo" class="oculto">
+<hr>
+<h2>📊 Mi registro</h2>
+<span class="mini">Cantidad: <b id="mostrarCantidad">0</b> L</span>
+<span class="mini">Frecuencia: <b id="mostrarFrecuencia">-</b></span>
+<span class="mini">Registro: <b id="mostrarTipo">-</b></span>
+<p id="comparacion"></p>
+</div>
+</div>
+</section>
+
+<!-- =========================
+     HABITOS
+========================= -->
+<section id="habitos" class="pantalla">
+
+<div class="encabezado">
+    <h1>🌱 Mis hábitos</h1>
+    <p>Selecciona todos los hábitos que realizas.</p>
+</div>
+
+<div class="caja">
+
+<img src="habitosparacuidarelagua.jpg"
+     alt="Hábitos para cuidar el agua"
+     class="imagen-resultados">
+
+<div class="lista">
+
+<div><input type="checkbox" class="habito" value="adecuado"> 🚰 Cierro la llave cuando no la estoy utilizando.</div>
+
+<div><input type="checkbox" class="habito" value="adecuado"> 🔧 Reparo las fugas de agua.</div>
+
+<div><input type="checkbox" class="habito" value="adecuado"> ♻️ Reutilizo agua cuando es posible.</div>
+
+<div><input type="checkbox" class="habito" value="adecuado"> 🚿 Reduzco el tiempo de la ducha.</div>
+
+<div><input type="checkbox" class="habito" value="adecuado"> 🪥 Uso solo el agua necesaria para cepillarme.</div>
+
+<div><input type="checkbox" class="habito" value="adecuado"> 🪣 Utilizo una cubeta para lavar algunas cosas.</div>
+
+<div><input type="checkbox" class="habito" value="adecuado"> 🌱 Riego las plantas en horarios adecuados.</div>
+
+<div><input type="checkbox" class="habito" value="adecuado"> 🌧️ Reutilizo agua de lluvia cuando es posible.</div>
+
+<div><input type="checkbox" class="habito" value="adecuado"> 📢 Aviso cuando encuentro una fuga.</div>
+
+<div><input type="checkbox" class="habito" value="adecuado"> 💧 Evito dejar correr el agua innecesariamente.</div>
+
+<div><input type="checkbox" class="habito" value="inadecuado"> ❌ Dejo la llave abierta mientras me cepillo.</div>
+
+<div><input type="checkbox" class="habito" value="inadecuado"> ⚠️ Dejo correr el agua mientras lavo los platos.</div>
+
+<div><input type="checkbox" class="habito" value="inadecuado"> ⏳ Tomo duchas demasiado largas.</div>
+
+<div><input type="checkbox" class="habito" value="inadecuado"> 💧 Utilizo más agua de la necesaria para lavar.</div>
+
+<div><input type="checkbox" class="habito" value="inadecuado"> 🚫 Ignoro las fugas de agua en casa.</div>
+
+</div>
+
+<button onclick="evaluarHabitos()">Evaluar mis hábitos 🌿</button>
+
+<p id="resultadoHabitos" class="resultado"></p>
+
+<button class="btn-sec" onclick="mostrar('principal')">Volver</button>
+
+</div>
+</section>
+
+<!-- =========================
+     CONSEJOS ECO-AHORRO
+========================= -->
+
+<style>
+#consejos .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 15px;
+}
+
+#consejos .imagen-consejo {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+#consejos .modal-pasos {
+    display: none;
+    position: fixed;
+    z-index: 99999;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+#consejos .contenido-pasos {
+    background: #fffdf2;
+    width: 100%;
+    max-width: 450px;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 25px;
+    border-radius: 20px;
+    position: relative;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+#consejos .contenido-pasos h2 {
+    color: #176b91;
+}
+
+#consejos .contenido-pasos p {
+    color: #555;
+    line-height: 1.6;
+}
+
+#consejos .contenido-pasos ol {
+    text-align: left;
+    padding-left: 25px;
+    line-height: 1.8;
+    color: #444;
+}
+
+#consejos .contenido-pasos li {
+    margin-bottom: 8px;
+}
+
+#consejos .cerrar-pasos {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    border: none;
+    background: #e8f4f8;
+    color: #176b91;
+    font-size: 18px;
+    border-radius: 50%;
+    padding: 8px 11px;
+    cursor: pointer;
+}
+
+#consejos .caja-especial {
+    background: #e8f7fa;
+    border-radius: 18px;
+    padding: 20px;
+    margin: 20px 10px;
+    text-align: center;
+}
+
+#consejos .mensaje-especial {
+    font-size: 16px;
+    color: #345;
+    line-height: 1.6;
+}
+</style>
+
+<section id="consejos" class="pantalla">
+
+<div class="encabezado">
+<h1>💡 Consejos Eco-Ahorro</h1>
+<p>Pequeñas acciones pueden ayudar a cuidar el agua.</p>
+</div>
+
+<div class="grid">
+
+<div class="card-menu">
+<img src="ducha.jpg" alt="Ducha" class="imagen-consejo">
+<h2>🚿 Ducha</h2>
+<p>Reduce el tiempo de la ducha y utiliza solo el agua necesaria.</p>
+<button onclick="mostrarPasos('ducha')">Ver pasos →</button>
+</div>
+
+<div class="card-menu">
+<img src="llaves.jpg" alt="Llaves" class="imagen-consejo">
+<h2>🚰 Llaves</h2>
+<p>Cierra la llave mientras te cepillas los dientes.</p>
+<button onclick="mostrarPasos('llaves')">Ver pasos →</button>
+</div>
+
+<div class="card-menu">
+<img src="plantas.jpg" alt="Plantas" class="imagen-consejo">
+<h2>🪴 Plantas</h2>
+<p>Riega tus plantas cuando el sol no esté demasiado fuerte.</p>
+<button onclick="mostrarPasos('plantas')">Ver pasos →</button>
+</div>
+
+<div class="card-menu">
+<img src="lavadora.jpg" alt="Lavadora" class="imagen-consejo">
+<h2>🧺 Lavadora</h2>
+<p>Utiliza la lavadora con cargas adecuadas.</p>
+<button onclick="mostrarPasos('lavadora')">Ver pasos →</button>
+</div>
+
+<div class="card-menu">
+<img src="lavado.jpg" alt="Lavado" class="imagen-consejo">
+<h2>🧼 Lavado</h2>
+<p>Evita dejar correr el agua durante el lavado.</p>
+<button onclick="mostrarPasos('lavado')">Ver pasos →</button>
+</div>
+
+<div class="card-menu">
+<img src="limpieza.jpg" alt="Limpieza" class="imagen-consejo">
+<h2>🧽 Limpieza</h2>
+<p>Evita utilizar demasiada agua al limpiar.</p>
+<button onclick="mostrarPasos('limpieza')">Ver pasos →</button>
+</div>
+
+<div class="card-menu">
+<img src="agua de lluvia.jpg" alt="Agua de lluvia" class="imagen-consejo">
+<h2>🌧️ Agua de lluvia</h2>
+<p>Cuando sea posible, aprovecha el agua de lluvia.</p>
+<button onclick="mostrarPasos('lluvia')">Ver pasos →</button>
+</div>
+
+<div class="card-menu">
+<img src="cubeta.jpg" alt="Cubeta" class="imagen-consejo">
+<h2>🪣 Cubeta</h2>
+<p>Una cubeta ayuda a controlar mejor la cantidad de agua.</p>
+<button onclick="mostrarPasos('cubeta')">Ver pasos →</button>
+</div>
+
+<div class="card-menu">
+<img src="jabon.jpg" alt="Jabón" class="imagen-consejo">
+<h2>🧴 Jabón</h2>
+<p>Primero aplica jabón y después utiliza agua para enjuagar.</p>
+<button onclick="mostrarPasos('jabon')">Ver pasos →</button>
+</div>
+
+<div class="card-menu">
+<img src="en la escuela.jpg" alt="Escuela" class="imagen-consejo">
+<h2>🏫 En la escuela</h2>
+<p>Cuida las llaves y avisa si encuentras alguna fuga.</p>
+<button onclick="mostrarPasos('escuela')">Ver pasos →</button>
+</div>
+
+</div>
+
+<!-- VENTANA DE PASOS -->
+
+<div id="ventanaPasos" class="modal-pasos">
+
+<div class="contenido-pasos">
+
+<button class="cerrar-pasos" onclick="cerrarPasos()">✖️</button>
+
+<h2 id="tituloPasos">Consejos Eco-Ahorro</h2>
+
+<p id="descripcionPasos"></p>
+
+<div id="listaPasos"></div>
+
+<button class="btn-sec" onclick="cerrarPasos()">
+Volver a consejos
+</button>
+
+</div>
+</div>
+
+<!-- DATO INTERESANTE -->
+
+<div class="caja-especial">
+<h2>🌎 Dato interesante</h2>
+
+<p id="datoInteresante" class="mensaje-especial">
+Presiona el botón para descubrir un dato.
+</p>
+
+<button onclick="mostrarDato()">Mostrar otro dato 💧</button>
+</div>
+
+<!-- RETOS -->
+
+<div class="caja-especial">
+<h2>🏆 Retos Eco-Ahorro</h2>
+
+<p id="reto" class="mensaje-especial">
+Presiona el botón para descubrir un reto.
+</p>
+
+<button onclick="mostrarReto()">Nuevo reto 🏆</button>
+</div>
+
+<div class="caja">
+<button class="btn-sec" onclick="mostrar('principal')">Volver</button>
+</div>
+
+</section>
+
+<script>
+
+// =========================
+// INFORMACIÓN DE LOS CONSEJOS
+// =========================
+
+const consejosEco = {
+
+ducha: {
+titulo: "🚿 Ducha",
+descripcion: "Ahorra agua mientras te duchas.",
+pasos: [
+"Abre la ducha solamente cuando sea necesario.",
+"Reduce el tiempo que pasas bañándote.",
+"Cierra la llave mientras te enjabonas.",
+"Utiliza solamente el agua necesaria."
+]
+},
+
+llaves: {
+titulo: "🚰 Llaves",
+descripcion: "Evita desperdiciar agua al utilizar las llaves.",
+pasos: [
+"Abre la llave solamente cuando la necesites.",
+"Cierra el grifo mientras te cepillas.",
+"Revisa que no existan fugas.",
+"Asegúrate de cerrar bien la llave."
+]
+},
+
+plantas: {
+titulo: "🪴 Plantas",
+descripcion: "Riega tus plantas de manera responsable.",
+pasos: [
+"Riega las plantas temprano o al atardecer.",
+"Utiliza solamente el agua necesaria.",
+"Aprovecha el agua de lluvia cuando sea adecuada.",
+"Evita regar más de lo necesario."
+]
+},
+
+lavadora: {
+titulo: "🧺 Lavadora",
+descripcion: "Aprovecha mejor el agua al lavar tu ropa.",
+pasos: [
+"Reúne suficiente ropa antes de lavar.",
+"Utiliza la capacidad adecuada de la lavadora.",
+"Selecciona un programa apropiado.",
+"Evita realizar lavados innecesarios."
+]
+},
+
+lavado: {
+titulo: "🧼 Lavado",
+descripcion: "Ahorra agua durante las actividades de lavado.",
+pasos: [
+"Utiliza un recipiente con agua.",
+"Cierra la llave mientras enjabonas.",
+"Enjuaga utilizando solamente el agua necesaria.",
+"No dejes correr el agua sin utilizarla."
+]
+},
+
+limpieza: {
+titulo: "🧽 Limpieza",
+descripcion: "Mantén limpios tus espacios sin desperdiciar agua.",
+pasos: [
+"Utiliza una cubeta para controlar el agua.",
+"Evita utilizar la manguera continuamente.",
+"Usa un paño húmedo cuando sea suficiente.",
+"Reutiliza agua adecuada para algunas tareas."
+]
+},
+
+lluvia: {
+titulo: "🌧️ Agua de lluvia",
+descripcion: "Aprovecha el agua de lluvia responsablemente.",
+pasos: [
+"Recolecta el agua en recipientes limpios.",
+"Guárdala en un recipiente tapado.",
+"Utilízala para regar plantas o limpiar.",
+"No la consumas sin tratamiento adecuado."
+]
+},
+
+cubeta: {
+titulo: "🪣 Cubeta",
+descripcion: "Controla la cantidad de agua que utilizas.",
+pasos: [
+"Llena una cubeta con la cantidad necesaria.",
+"Utilízala para lavar o limpiar.",
+"Evita llenar recipientes innecesariamente.",
+"No desperdicies el agua sobrante."
+]
+},
+
+jabon: {
+titulo: "🧴 Jabón",
+descripcion: "Utiliza el agua correctamente al enjabonarte.",
+pasos: [
+"Moja primero el objeto o tus manos.",
+"Cierra la llave mientras aplicas jabón.",
+"Enjuaga utilizando agua suficiente.",
+"Cierra bien el grifo al terminar."
+]
+},
+
+escuela: {
+titulo: "🏫 En la escuela",
+descripcion: "Todos podemos ayudar a cuidar el agua.",
+pasos: [
+"Cierra las llaves después de utilizarlas.",
+"No juegues con el agua.",
+"Avisa si encuentras alguna fuga.",
+"Anima a tus compañeros a ahorrar agua."
+]
+}
+
+};
+
+// =========================
+// MOSTRAR PASOS
+// =========================
+
+function mostrarPasos(tipo) {
+
+    const consejo = consejosEco[tipo];
+
+    if (!consejo) {
+        alert("No se encontró este consejo.");
+        return;
+    }
+
+    document.getElementById("tituloPasos").textContent =
+        consejo.titulo;
+
+    document.getElementById("descripcionPasos").textContent =
+        consejo.descripcion;
+
+    const lista = document.getElementById("listaPasos");
+
+    lista.innerHTML = "";
+
+    const ul = document.createElement("ol");
+
+    consejo.pasos.forEach(function(paso) {
+
+        const li = document.createElement("li");
+
+        li.textContent = paso;
+
+        ul.appendChild(li);
+
+    });
+
+    lista.appendChild(ul);
+
+    document.getElementById("ventanaPasos").style.display = "flex";
+
+}
+
+// =========================
+// CERRAR VENTANA
+// =========================
+
+function cerrarPasos() {
+
+    document.getElementById("ventanaPasos").style.display = "none";
+
+}
+
+// Cerrar al presionar fuera de la ventana
+
+document.getElementById("ventanaPasos").addEventListener("click", function(e) {
+
+    if (e.target === this) {
+        cerrarPasos();
+    }
+
+});
+
+// =========================
+// DATOS INTERESANTES
+// =========================
+
+const datosEco = [
+"El agua es indispensable para la vida de las personas, los animales y las plantas.",
+"Pequeñas fugas pueden desperdiciar mucha agua con el paso del tiempo.",
+"Cerrar la llave mientras te cepillas ayuda a ahorrar agua.",
+"El agua de lluvia puede aprovecharse para algunas actividades domésticas.",
+"El cuidado del agua es responsabilidad de todos."
+];
+
+function mostrarDato() {
+
+    const dato = datosEco[
+        Math.floor(Math.random() * datosEco.length)
+    ];
+
+    document.getElementById("datoInteresante").textContent = dato;
+
+}
+
+// =========================
+// RETOS ECO-AHORRO
+// =========================
+
+const retosEco = [
+"Hoy evita dejar correr el agua mientras te cepillas los dientes.",
+"Utiliza una cubeta en lugar de la manguera para limpiar.",
+"Revisa que todas las llaves de tu casa estén bien cerradas.",
+"Comparte un consejo para ahorrar agua con tu familia.",
+"Riega las plantas utilizando solamente el agua necesaria.",
+"Evita jugar o desperdiciar agua durante el día.",
+"Avisa si encuentras alguna fuga de agua."
+];
+
+function mostrarReto() {
+
+    const reto = retosEco[
+        Math.floor(Math.random() * retosEco.length)
+    ];
+
+    document.getElementById("reto").textContent = reto;
+
+}
+
+</script>
+
+<!-- =========================
+     MINI JUEGO: ATRAPA LA GOTA
+========================= -->
+<section id="juego" class="pantalla">
+
+    <div class="encabezado">
+        <h1>🎮 ¡Atrapa la Gota!</h1>
+        <p>¡Demuestra tu rapidez y ayuda a salvar cada gotita de agua! 💧</p>
+    </div>
+
+    <div class="caja">
+
+        <h2>🌊 Desafío Eco-Ahorro</h2>
+
+        <p>
+            Atrapa todas las gotas que puedas antes de que termine
+            el tiempo. ¡Cada gota cuenta!
+        </p>
+
+        <div class="stats-juego">
+
+            <div class="dato-juego">
+                <span>🏆 PUNTOS</span>
+                <b id="puntosJuego">0</b>
+            </div>
+
+            <div class="dato-juego">
+                <span>⏱️ TIEMPO</span>
+                <b><span id="tiempoJuego">30</span>s</b>
+            </div>
+
+        </div>
+
+        <div class="juego-area" id="areaJuego">
+            <div class="mensaje-inicio-juego" id="mensajeInicioJuego">
+                💧
+                <h2>¡Prepárate!</h2>
+                <p>Presiona empezar para jugar.</p>
+            </div>
+        </div>
+
+        <p id="estadoJuego" class="mensaje-especial">
+            ¿Estás listo para el desafío? 🌟
+        </p>
+
+        <button id="btnIniciarJuego" onclick="iniciarJuego()">
+            🚀 ¡Empezar juego!
+        </button>
+
+        <button class="btn-sec" onclick="mostrar('principal')">
+            Volver al menú
+        </button>
+
+        <div class="mini">
+            💧 Cada gotita atrapada suma puntos.
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     RESULTADOS
+========================= -->
+<section id="resultados" class="pantalla">
+
+    <div class="encabezado">
+        <h1>📊 Mis resultados</h1>
+        <p>Observa tu progreso y descubre cuánto has avanzado cuidando el agua.</p>
+    </div>
+
+    <div class="caja">
+
+        <img
+            src="observatuprogreso.jpg"
+            alt="Resultados y progreso del cuidado del agua"
+            class="imagen-resultados"
+            style="width:100%; max-width:650px; height:230px; object-fit:cover; border-radius:18px; display:block; margin:15px auto;"
+        >
+
+        <h2>🌟 Mi progreso ecológico</h2>
+
+        <p class="resultado">
+            💧 Consumo: <span id="resultadoConsumo">0</span> L
+        </p>
+
+        <p class="resultado">
+            🌱 Hábitos adecuados: <span id="resultadoAdecuados">0</span>
+        </p>
+
+        <p class="resultado">
+            ⚠️ Hábitos inadecuados: <span id="resultadoInadecuados">0</span>
+        </p>
+
+        <p class="resultado">
+            🎮 Puntos de juego: <span id="resultadoPuntosJuego">0</span> 💧
+        </p>
+
+        <h3>🏆 Mi progreso</h3>
+
+        <div class="barra">
+            <div id="barraProgreso" class="progreso"></div>
+        </div>
+
+        <p id="textoProgreso">Aún no hay datos.</p>
+
+        <button onclick="borrarDatos()">🗑️ Borrar datos</button>
+
+        <p id="mensajeBorrado" class="mensaje-borrado"></p>
+
+        <button class="btn-sec" onclick="mostrar('principal')">
+            Volver
+        </button>
+
+    </div>
+</section>
+
+<!-- =========================
+     IMPACTO
+========================= -->
+<section id="impacto" class="pantalla">
+
+    <div class="encabezado">
+        <h1>🌎 Impacto</h1>
+        <p>Cuidar el agua genera cambios positivos para todos.</p>
+    </div>
+
+    <div class="grid">
+
+        <!-- IMPACTO AMBIENTAL -->
+        <div class="card-menu">
+            <img src="impacto.jpg"
+                 alt="Impacto ambiental"
+                 class="imagen-impacto">
+
+            <h2>Impacto ambiental 🌿</h2>
+            <p>Ayuda a reducir el desperdicio de agua, proteger los ríos y cuidar los recursos naturales.</p>
+        </div>
+
+        <!-- IMPACTO SOCIAL -->
+        <div class="card-menu">
+            <img src="impactosocial.jpg"
+                 alt="Impacto social"
+                 class="imagen-impacto">
+
+            <h2>Impacto social 🤝</h2>
+            <p>Promueve la educación, la responsabilidad y la participación de las personas en el cuidado del agua.</p>
+        </div>
+
+        <!-- IMPACTO ECONÓMICO -->
+        <div class="card-menu">
+            <img src="impactoeconomico.jpg"
+                 alt="Impacto económico"
+                 class="imagen-impacto">
+
+            <h2>Impacto económico 💰</h2>
+            <p>Un consumo responsable permite evitar desperdicios y disminuir los gastos en el servicio de agua.</p>
+        </div>
+
+    </div>
+
+    <div class="caja">
+        <button class="btn-sec" onclick="mostrar('principal')">
+            Volver al menú
+        </button>
+    </div>
+
+</section>
+
+<!-- =========================
+     MENU INFERIOR
+========================= -->
+<nav id="menuInferior" class="menu oculto">
+<button onclick="mostrar('principal')">🏠 Inicio</button>
+<button onclick="mostrar('consumo')">💧 Consumo</button>
+<button onclick="mostrar('habitos')">🌱 Hábitos</button>
+<button onclick="mostrar('consejos')">💡 Consejos</button>
+<button onclick="mostrar('juego')">🎮 Juego</button>
+<button onclick="mostrar('resultados')">📊 Resultados</button>
+<button onclick="mostrar('impacto')">🌎 Impacto</button>
+</nav>
+
+<script>
+let user = localStorage.getItem("ecoUser") || "";
+let pass = localStorage.getItem("ecoPass") || "";
+let nombreGuardado = localStorage.getItem("ecoNombre") || "";
+let cantidadGuardada = Number(localStorage.getItem("ecoCantidad") || 0);
+let adecuados = Number(localStorage.getItem("ecoAdecuados") || 0);
+let inadecuados = Number(localStorage.getItem("ecoInadecuados") || 0);
+let puntosJuego = Number(localStorage.getItem("ecoPuntosJuego") || 0);
+
+document.addEventListener("DOMContentLoaded", () => {
+    const habitosGuardados = JSON.parse(localStorage.getItem("ecoHabitosCheck") || "{}");
+    document.querySelectorAll(".habito").forEach((chk, index) => {
+        if(habitosGuardados[index]) { chk.checked = true; }
+    });
+});
+
+/* =========================
+   SONIDOS
+========================= */
+let audioContext = null;
+
+function reproducirSonido(tipo){
+    try{
+        if(!audioContext){
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if(audioContext.state === "suspended"){ audioContext.resume(); }
+
+        const osc = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+        osc.connect(gain);
+        gain.connect(audioContext.destination);
+
+        let freqInicio = 520;
+        let freqFin = 750;
+        let duracion = 0.1;
+
+        if(tipo === 'exito'){
+            freqInicio = 400;
+            freqFin = 880;
+            duracion = 0.2;
+        } else if(tipo === 'clic'){
+            freqInicio = 600;
+            freqFin = 450;
+            duracion = 0.08;
+        }
+
+        osc.frequency.setValueAtTime(freqInicio, audioContext.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(freqFin, audioContext.currentTime + duracion);
+        gain.gain.setValueAtTime(0.12, audioContext.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duracion);
+
+        osc.start();
+        osc.stop(audioContext.currentTime + duracion);
+    }catch(error){
+        console.log("El sonido no pudo reproducirse.");
+    }
+}
+
+document.addEventListener("click", function(event){
+    if(event.target.tagName === "BUTTON"){
+        reproducirSonido('clic');
+    }
+});
+
+/* =========================
+   CAMBIAR PANTALLA
+========================= */
+function mostrar(id){
+    document.querySelectorAll(".pantalla").forEach(x => x.classList.remove("activa"));
+    document.getElementById("pantallaIcono").classList.remove("activa");
+    document.getElementById(id).classList.add("activa");
+
+    const menu = document.getElementById("menuInferior");
+    if(["principal", "consumo", "habitos", "consejos", "juego", "resultados", "impacto"].includes(id)){
+        menu.classList.remove("oculto");
+    } else {
+        menu.classList.add("oculto");
+    }
+
+    if(id === "resultados"){ actualizarResultados(); }
+}
+
+function mostrarIcono(){
+    document.querySelectorAll(".pantalla").forEach(x => x.classList.remove("activa"));
+    document.getElementById("pantallaIcono").classList.add("activa");
+    document.getElementById("menuInferior").classList.add("oculto");
+}
+
+function entrarAplicacion(){
+    document.getElementById("pantallaIcono").classList.remove("activa");
+    document.getElementById("principal").classList.add("activa");
+    document.getElementById("menuInferior").classList.remove("oculto");
+}
+
+/* =========================
+   REGISTRO
+========================= */
+function registrar(){
+    const nombre = document.getElementById("nombre").value.trim();
+    const nuevoUsuario = document.getElementById("nuevoUsuario").value.trim();
+    const nuevaClave = document.getElementById("nuevaClave").value;
+
+    if(!nombre || !nuevoUsuario || !nuevaClave){
+        alert("Completa nombre, usuario y contraseña.");
+        return;
+    }
+
+    user = nuevoUsuario;
+    pass = nuevaClave;
+    nombreGuardado = nombre;
+
+    localStorage.setItem("ecoUser", user);
+    localStorage.setItem("ecoPass", pass);
+    localStorage.setItem("ecoNombre", nombre);
+
+    reproducirSonido('exito');
+    alert("¡Registro creado correctamente! 🎉");
+    mostrarIcono();
+}
+
+/* =========================
+   INGRESAR
+========================= */
+function ingresar(){
+    const u = document.getElementById("usuario").value;
+    const p = document.getElementById("clave").value;
+    const mensaje = document.getElementById("mensaje");
+
+    if(u === user && p === pass){
+        document.getElementById("saludo").textContent = "Hola, " + (nombreGuardado || "usuario") + " 💧 ¡Sigamos cuidando el agua!";
+        mensaje.textContent = "";
+        reproducirSonido('exito');
+        mostrarIcono();
+    }else{
+        mensaje.textContent = "Datos incorrectos ❌";
+    }
+}
+
+/* =========================
+   CONSUMO
+========================= */
+function guardarConsumo(){
+    const cantidad = Number(document.getElementById("cantidad").value);
+
+    if(!cantidad || cantidad <= 0){
+        alert("Ingresa una cantidad válida.");
+        return;
+    }
+
+    cantidadGuardada = cantidad;
+    localStorage.setItem("ecoCantidad", cantidad);
+    localStorage.setItem("ecoFrecuencia", document.getElementById("frecuencia").value);
+    localStorage.setItem("ecoTipo", document.getElementById("tipoRegistro").value);
+
+    document.getElementById("mostrarCantidad").textContent = cantidad;
+    document.getElementById("mostrarFrecuencia").textContent = document.getElementById("frecuencia").value;
+    document.getElementById("mostrarTipo").textContent = document.getElementById("tipoRegistro").value;
+    document.getElementById("datosConsumo").classList.remove("oculto");
+
+    if(cantidad <= 80){
+        document.getElementById("comparacion").textContent = "💛 Tu consumo registrado está dentro de una referencia moderada para este ejercicio.";
+    }else{
+        document.getElementById("comparacion").textContent = "💧 Tu consumo registrado supera los 80 L. Revisa tus hábitos para buscar formas de ahorrar agua.";
+    }
+
+    reproducirSonido('exito');
+    alert("Consumo guardado 💾");
+}
+
+/* =========================
+   HABITOS
+========================= */
+function evaluarHabitos(){
+    adecuados = 0;
+    inadecuados = 0;
+    const habitosEstado = {};
+
+    document.querySelectorAll(".habito").forEach((c, index) => {
+        if(c.checked) {
+            habitosEstado[index] = true;
+            if(c.value === "adecuado") adecuados++;
+            else inadecuados++;
+        }
+    });
+
+    localStorage.setItem("ecoAdecuados", adecuados);
+    localStorage.setItem("ecoInadecuados", inadecuados);
+    localStorage.setItem("ecoHabitosCheck", JSON.stringify(habitosEstado));
+
+    document.getElementById("resultadoHabitos").textContent = "Hábitos adecuados: " + adecuados + " | Hábitos inadecuados: " + inadecuados;
+    reproducirSonido('exito');
+}
+
+/* =========================
+   MINI JUEGO: ATRAPA LA GOTA
+========================= */
+let intervaloJuego = null;
+let temporizadorJuego = null;
+let juegoActivo = false;
+
+function iniciarJuego(){
+    if(juegoActivo) return;
+    juegoActivo = true;
+    puntosJuego = 0;
+    let tiempoRestante = 30;
+    
+    document.getElementById("puntosJuego").textContent = puntosJuego;
+    document.getElementById("tiempoJuego").textContent = tiempoRestante;
+    document.getElementById("btnIniciarJuego").style.display = "none";
+    
+    const area = document.getElementById("areaJuego");
+    area.innerHTML = "";
+
+    intervaloJuego = setInterval(() => {
+        if(!juegoActivo) return;
+        const gota = document.createElement("div");
+        gota.className = "gota-juego";
+        gota.textContent = "💧";
+        gota.style.left = Math.floor(Math.random() * (area.clientWidth - 40)) + "px";
+        gota.style.top = Math.floor(Math.random() * (area.clientHeight - 40)) + "px";
+        
+        gota.onclick = () => {
+            if(!juegoActivo) return;
+            puntosJuego += 10;
+            document.getElementById("puntosJuego").textContent = puntosJuego;
+            localStorage.setItem("ecoPuntosJuego", puntosJuego);
+            reproducirSonido('exito');
+            gota.remove();
+        };
+
+        area.appendChild(gota);
+
+        setTimeout(() => {
+            if(gota.parentElement) gota.remove();
+        }, 1200);
+
+    }, 700);
+
+    temporizadorJuego = setInterval(() => {
+        tiempoRestante--;
+        document.getElementById("tiempoJuego").textContent = tiempoRestante;
+        if(tiempoRestante <= 0){
+            clearInterval(intervaloJuego);
+            clearInterval(temporizadorJuego);
+            juegoActivo = false;
+            area.innerHTML = "<h3 style='margin-top:90px; color:#075b91;'>🎉 ¡Juego terminado! Puntos ganados: " + puntosJuego + " 💧</h3>";
+            document.getElementById("btnIniciarJuego").style.display = "inline-block";
+            document.getElementById("btnIniciarJuego").textContent = "Jugar de nuevo 🔄";
+        }
+    }, 1000);
+}
+
+/* =========================
+   RESULTADOS
+========================= */
+function actualizarResultados(){
+    document.getElementById("resultadoConsumo").textContent = cantidadGuardada;
+    document.getElementById("resultadoAdecuados").textContent = adecuados;
+    document.getElementById("resultadoInadecuados").textContent = inadecuados;
+    document.getElementById("resultadoPuntosJuego").textContent = puntosJuego;
+
+    let total = adecuados + inadecuados;
+    let porcentaje = total ? Math.round((adecuados / total) * 100) : 0;
+
+    document.getElementById("barraProgreso").style.width = porcentaje + "%";
+    document.getElementById("textoProgreso").textContent = total ? "Tu progreso de hábitos adecuados es de " + porcentaje + "%." : "Selecciona tus hábitos para comenzar a medir tu progreso.";
+}
+
+/* =========================
+   BORRAR DATOS
+========================= */
+function borrarDatos(){
+    const confirmar = confirm("¿Seguro que quieres borrar todos tus datos de consumo y hábitos?");
+    if(!confirmar) return;
+
+    cantidadGuardada = 0;
+    adecuados = 0;
+    inadecuados = 0;
+    puntosJuego = 0;
+    localStorage.clear();
+
+    document.getElementById("cantidad").value = "";
+    document.getElementById("datosConsumo").classList.add("oculto");
+    document.querySelectorAll(".habito").forEach(checkbox => checkbox.checked = false);
+    document.getElementById("resultadoHabitos").textContent = "";
+    document.getElementById("resultadoConsumo").textContent = "0";
+    document.getElementById("resultadoAdecuados").textContent = "0";
+    document.getElementById("resultadoInadecuados").textContent = "0";
+    document.getElementById("resultadoPuntosJuego").textContent = "0";
+    document.getElementById("barraProgreso").style.width = "0%";
+    document.getElementById("textoProgreso").textContent = "Aún no hay datos.";
+    document.getElementById("mensajeBorrado").textContent = "✅ Todos los datos de consumo y hábitos fueron borrados.";
+    reproducirSonido('clic');
+}
+
+/* =========================
+   DATOS INTERESANTES
+========================= */
+const datos = [
+    "💧 El agua es necesaria para todos los seres vivos.",
+    "🌎 Cuidar el agua también ayuda a cuidar los ecosistemas.",
+    "🚰 Cerrar la llave mientras te cepillas puede evitar desperdicios innecesarios.",
+    "🌱 Las plantas necesitan agua, pero también debemos evitar regarlas en exceso.",
+    "💧 Una fuga pequeña puede desperdiciar agua durante mucho tiempo.",
+    "🏫 Cuidar las llaves de agua de la escuela es responsabilidad de todos.",
+    "🌧️ El agua de lluvia puede aprovecharse para algunas actividades cuando sea adecuada.",
+    "♻️ Reutilizar agua de forma segura puede ayudar a disminuir el desperdicio.",
+    "🚿 Reducir el tiempo de la ducha es una forma sencilla de ahorrar agua.",
+    "👨‍👩‍👧 Compartir consejos sobre el cuidado del agua ayuda a crear buenos hábitos.",
+    "🌎 El agua dulce disponible para las personas es limitada.",
+    "💙 Cada acción responsable contribuye al cuidado de este recurso."
+];
+
+function mostrarDato(){
+    const numero = Math.floor(Math.random() * datos.length);
+    document.getElementById("datoInteresante").textContent = datos[numero];
+}
+
+/* =========================
+   RETOS
+========================= */
+const retos = [
+    "🚿 Reto: reduce unos minutos tu próxima ducha.",
+    "🚰 Reto: cierra la llave mientras te cepillas.",
+    "🌱 Reto: revisa si hay alguna fuga en casa.",
+    "🪣 Reto: utiliza una cubeta en lugar de dejar correr el agua cuando sea posible.",
+    "🍽️ Reto: lava los platos sin dejar la llave abierta innecesariamente.",
+    "🌧️ Reto: aprende una forma segura de aprovechar el agua de lluvia.",
+    "🏫 Reto: observa si en tu escuela existe alguna fuga y avisa a un adulto.",
+    "💧 Reto: durante un día, presta atención a cada vez que utilizas agua.",
+    "🌎 Reto: cuéntale a alguien un consejo para cuidar el agua.",
+    "🚿 Reto: intenta hacer una ducha más corta de lo habitual.",
+    "🌱 Reto: riega tus plantas utilizando solo el agua necesaria.",
+    "💙 Reto: pasa un día evitando desperdiciar agua innecesariamente."
+];
+
+function mostrarReto(){
+    const numero = Math.floor(Math.random() * retos.length);
+    document.getElementById("reto").textContent = retos[numero];
+}
+
+/* =========================
+   CREAR GOTITAS
+========================= */
+const lluvia = document.getElementById("lluvia");
+
+for(let i = 0; i < 60; i++){
+    const gota = document.createElement("div");
+    gota.className = "gota";
+    gota.textContent = "💧";
+    gota.style.left = (Math.random() * 100) + "vw";
+    gota.style.fontSize = (10 + Math.random() * 25) + "px";
+    gota.style.animationDuration = (3 + Math.random() * 6) + "s";
+    gota.style.animationDelay = (Math.random() * 6) + "s";
+    lluvia.appendChild(gota);
+}
+// ========================================
+// 💧 SONIDO REALISTA DE GOTA DE AGUA
+// ========================================
+
+let audioGota;
+
+function sonidoGota() {
+
+    if (!audioGota) {
+        audioGota = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
+    if (audioGota.state === "suspended") {
+        audioGota.resume();
+    }
+
+    const ahora = audioGota.currentTime;
+
+    // Crear sonido principal de la gota
+    const gota = audioGota.createOscillator();
+    const volumen = audioGota.createGain();
+
+    gota.type = "sine";
+
+    gota.frequency.setValueAtTime(1000, ahora);
+    gota.frequency.exponentialRampToValueAtTime(180, ahora + 0.12);
+
+    volumen.gain.setValueAtTime(0.001, ahora);
+    volumen.gain.linearRampToValueAtTime(0.8, ahora + 0.008);
+    volumen.gain.exponentialRampToValueAtTime(0.001, ahora + 0.18);
+
+    gota.connect(volumen);
+    volumen.connect(audioGota.destination);
+
+    gota.start(ahora);
+    gota.stop(ahora + 0.19);
+
+    // Pequeña salpicadura
+    const salpique = audioGota.createOscillator();
+    const volumenSalpique = audioGota.createGain();
+
+    salpique.type = "sine";
+
+    salpique.frequency.setValueAtTime(1600, ahora + 0.08);
+    salpique.frequency.exponentialRampToValueAtTime(700, ahora + 0.19);
+
+    volumenSalpique.gain.setValueAtTime(0.001, ahora);
+    volumenSalpique.gain.linearRampToValueAtTime(0.35, ahora + 0.09);
+    volumenSalpique.gain.exponentialRampToValueAtTime(0.001, ahora + 0.22);
+
+    salpique.connect(volumenSalpique);
+    volumenSalpique.connect(audioGota.destination);
+
+    salpique.start(ahora + 0.08);
+    salpique.stop(ahora + 0.23);
+}
+
+// Activar sonido en todos los botones
+document.addEventListener("click", function(event) {
+
+    const boton = event.target.closest("button");
+
+    if (boton && !boton.disabled) {
+        sonidoGota();
+    }
+
+});
+</script>
+
+</body>
+</html>
